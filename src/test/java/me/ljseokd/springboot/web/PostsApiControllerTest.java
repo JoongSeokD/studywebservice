@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -94,6 +95,23 @@ class PostsApiControllerTest {
         Posts posts = all.get(0);
         assertEquals(expectedTitle,posts.getTitle());
         assertEquals(expectedContent,posts.getContent());
+    }
+
+    @Test
+    void baseTimeEntity() throws Exception {
+        //given
+        LocalDateTime now = LocalDateTime.of(2020, 8, 27, 0, 0, 0);
+        Posts save = postsRepository.save(Posts.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        //when
+        Posts posts = postsRepository.findAll().get(0);
+        //then
+        assertTrue(posts.getCreatedDate().isAfter(now));
+        assertTrue(posts.getModifiedDate().isAfter(now));
     }
 
 }
