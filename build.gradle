@@ -19,14 +19,15 @@ apply plugin: 'io.spring.dependency-management'
 group 'me.ljseokd'
 version '1.0.0-SNAPSHOT-'
 sourceCompatibility = 14
-
 repositories {
     mavenCentral()
     jcenter()
 }
-
+test {
+    useJUnitPlatform()
+}
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
 }
